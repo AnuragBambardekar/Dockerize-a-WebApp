@@ -113,3 +113,8 @@ Running your image with -d runs the container in detached mode, leaving the cont
 
 ## Kill our running container
 ```$ docker kill <container id>```
+
+
+
+# Reference:
+- https://nodejs.org/en/docs/guides/nodejs-docker-webapp
