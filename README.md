@@ -114,7 +114,37 @@ Running your image with -d runs the container in detached mode, leaving the cont
 ## Kill our running container
 ```$ docker kill <container id>```
 
+# Building Better Images for node.js
 
+```docker
+FROM node:19.6-alpine 
+
+WORKDIR /usr/src/app  
+
+ENV NODE_ENV production
+
+COPY package.json ./ 
+
+DOCKER_BUILDKIT = 1
+
+RUN --mount=type=cache,target=/usr/src/app/.npm \
+    npm set cache /usr/src/app/.npm && \
+    npm ci --only=production
+
+# Now what happens is that mount is added and it is to be used to cache the data.
+# If I invalidated the previous layer, then it will download all of the dependencies from npm from the Internet and then install them. 
+
+# Now it will only download the new dependencies from the Internet and it can use the local cache to install the rest of the dependencies, speeding up the downloads.
+
+USER node
+
+COPY --chown=node:node . .
+
+EXPOSE 8080
+
+CMD ["node","index.js"]
+
+```
 
 # Reference:
 - https://nodejs.org/en/docs/guides/nodejs-docker-webapp

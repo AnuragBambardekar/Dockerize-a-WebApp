@@ -149,9 +149,9 @@ RUN --mount=type=cache,target=/usr/src/app/.npm \
     npm ci --only=production
 
 # Now what happens is that mount is added and it is to be used to cache the data.
-If I invalidated the previous layer, then it will download all of the dependencies from npm from the Internet and then install them. 
+# If I invalidated the previous layer, then it will download all of the dependencies from npm from the Internet and then install them. 
 
-Now it will only download the new dependencies from the Internet and it can use the local cache to install the rest of the dependencies, speeding up the downloads.
+# Now it will only download the new dependencies from the Internet and it can use the local cache to install the rest of the dependencies, speeding up the downloads.
 
 USER node
 
